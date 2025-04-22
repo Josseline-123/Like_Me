@@ -18,4 +18,18 @@ const consultarPosts = async () => {
    return result.rowCount;
 }
 
-module.exports ={ consultarPosts, agregaPosts }
+const modificarRegistros = async (id, likes) => {
+   const query = "UPDATE posts SET likes = $1 WHERE id = $2";
+   const result = await pool.query(query,[likes, id]);
+   return result;
+}
+
+const borrarRegistros = async (id) => {
+   const query = "DELETE FROM posts WHERE id = $1";
+   const result = await pool.query(query, [id]);
+   return result;
+}
+
+
+
+module.exports = { consultarPosts, agregaPosts, modificarRegistros, borrarRegistros }
